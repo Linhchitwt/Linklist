@@ -85,10 +85,10 @@ void AddElementFront(LIST &l, NODE *p){
     x = input(x);
     NODE *q = pDeclare(x);
     NODE *g = new NODE;
-    if (q->data == l.pHead->data && l.pHead->pNext== NULL ){
+  /*   if (q->data == l.pHead->data && l.pHead->pNext== NULL ){
         AddFirst(l,p);
     }
-    else {
+    else { */
         for (NODE *k = l.pHead; k != NULL ; k = k ->pNext){
             if (k->data == q->data){
            /*  NODE *m = pDeclare((k-1)->data) ;              
@@ -100,7 +100,7 @@ void AddElementFront(LIST &l, NODE *p){
         g = k;
         }
         Addfirst1(l,p,x,q);
-    }
+   // }
 }
 int main(){
     LIST l;
