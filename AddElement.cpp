@@ -7,6 +7,7 @@ struct node
     struct node *pNext;
 };
 typedef struct node NODE;
+// tạo node đầu và cuối
 struct list
 {
     NODE *pHead;
@@ -17,6 +18,7 @@ void Init(LIST &l){
     l.pHead = NULL;
     l.pTail = NULL;
 }
+// dùng để tạo 1 node bất kì
 NODE *pDeclare(int x){
     NODE *p = new NODE;
     if (p == NULL){
@@ -27,15 +29,17 @@ NODE *pDeclare(int x){
         p->pNext = NULL;
         return p;
 }
+// thêm 1 phần tử vào đầu danh sách
 void AddElementFirst(LIST &l,NODE *q){
     if (l.pHead == NULL){
         l.pHead = l.pTail = q;
     }
     else {
-        q->pNext = l.pHead;
+        q->pNext = l.pHead; 
         l.pHead = q;
     }
 }
+// thêm 1 phần tử vào cuối danh sách
 void AddElementLast(LIST &l, NODE *q){
     if (l.pHead == NULL){
         l.pHead = l.pTail = q;
@@ -66,14 +70,15 @@ void DSLK(LIST &l, int &n){
     for (int i = 0; i <n; i++){     
         printf ("Nhap vao phan tu thu %d = ",i+1);
         scanf("%d", &x);
-        NODE *p = pDeclare(x);
-        AddElementLast(l,p);
+        NODE *p = pDeclare(x); // mối x sẽ tạo ra 1 node p tương ứng
+        AddElementLast(l,p); // thêm vào sau để tạo ra 1 danh sách lk
     }
 }
 
 void AddElement(LIST &l, NODE *p,NODE *q, int &n){
     int k, location;
     location = Input(k);
+    // nếu danh sách rỗng và vị trí k = 1 hoặc danh sách khác rỗng mà vị trí là 1 thì thêm vào đầu
        if ((l.pHead == NULL && location == 1) || location == 1){
             AddElementFirst(l,q);
         }
@@ -83,13 +88,15 @@ void AddElement(LIST &l, NODE *p,NODE *q, int &n){
     }
     else if (location >= 2 && location <= n){
         int m=0;
-        NODE *g = new NODE;
+        NODE *g = new NODE; //tạo 1 node g mới để giữ các mối liên kết phía trước node có vị trí = k
        for ( NODE *i = l.pHead ; i!= NULL; i= i->pNext){
            m ++;
+           // đếm m đến khi nào gặp vị trí thì dừng, thao tác thêm 1 phần tử phía trước phần tử có vị trí k
            if (m == location){
                NODE *h = pDeclare(q->data);
                h->pNext=i;
                 g->pNext = h;
+               // sau khi thêm thì dừng vòng lặp để tránh hiện tượng lặp thêm q vô hạn tại vị trí k
                 break;
            }
            g = i;
