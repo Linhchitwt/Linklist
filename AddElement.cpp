@@ -74,7 +74,7 @@ void DSLK(LIST &l, int &n){
 void AddElement(LIST &l, NODE *p,NODE *q, int &n){
     int k, location;
     location = Input(k);
-    if (l.pHead == NULL && location == 1 ){
+       if ((l.pHead == NULL && location == 1) || location == 1){
             AddElementFirst(l,q);
         }
     else if (location == n+1){     //th không thuộc trong khoảng số phần tử của danh sách
