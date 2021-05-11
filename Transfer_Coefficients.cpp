@@ -19,6 +19,7 @@ void Init(STACK& s) {
     s.pTop = NULL;
 }
 NODE* pDeclare(int x) {
+    // tạo 1 cái node
     NODE* p = new NODE;
     if (p == NULL) {
         cout << "Insufficient Memory!!!";
@@ -75,6 +76,7 @@ bool TopStack(STACK& s, int& x) {
     }
 }
 void Output(STACK s, int& x) {
+    // in danh sách
     while (IsEmpty(s) == false)
     {
         PopStack(s, x);
@@ -82,6 +84,7 @@ void Output(STACK s, int& x) {
     }
 }
 void Output_case4(STACK s, int& x) {
+    // in danh sách có bao gồm các chữ cái của hệ 16
     while (IsEmpty(s) == false)
     {
         PopStack(s, x);
@@ -103,23 +106,26 @@ void Input_system_number(int& n, int& k) {
     cin >> k;
 }
 void AnySystem_Decimal(STACK& s, int& k, int& n, int& count) {
+    // chuyển từ hệ bất kì (n = 1,2...10) thành hệ 10
     int m;
     count = 0;
     if (n == 0 || n == 1) {
+        //không thể chuyển vì lỗi
         return;
     }
     cout << k << " is converted to : ";
-    m = k % 10;
-    PushStack(s, m);
-    k = k / 10;
+    m = k % 10; // m là số chia lấy dư của hệ (m < n)
+    PushStack(s, m); // sở dĩ push cái đầu tiên là để đến đoạn outpus không ảnh hưởng đến count và số mũ của n
+    k = k / 10; //k là phần nguyên dùng để chia tiếp
     while (k > 0) {
         m = k % 10;
         PushStack(s, m);
         k = k / 10;
-        count++;
+        count++; // đếm số phần tử 
     }
 }
 void Hexadecimal_Decimal(STACK& s, char ch[], int &count, int &m) {
+    // chuyển từ hệ 16 về hệ 10
     cout << "The number = ";
     fflush(stdin);
     cin >> ch;
@@ -153,6 +159,11 @@ void Hexadecimal_Decimal(STACK& s, char ch[], int &count, int &m) {
     }
 }
 int NumberOf_DecimalSystem(int& n, STACK& s, int& count) {
+    // tính số đã được chuyển
+    /* 
+    khi pop ra, cái nào lấy ra trước sẽ nhân với số mũ lớn nhất
+    vì cái này lấy ngược
+    */
     int sum = 0;
     int x;
     while (IsEmpty(s) == false && count >= 0) {
@@ -163,6 +174,11 @@ int NumberOf_DecimalSystem(int& n, STACK& s, int& count) {
     return sum;
 }
  int Hex_NumberOf_DecimalSystem(int& n, STACK& s, int& count) {
+     // tính số đã được chuyển
+    /* 
+    ngược lại với bài trên, phần này để tính hệ 10 từ hệ 16 chuyển sang
+    khi lấy ra không bị ngược
+    */
     int sum = 0;
     int x,b = 0;
     while (IsEmpty(s) == false && b <= count) {
@@ -173,6 +189,7 @@ int NumberOf_DecimalSystem(int& n, STACK& s, int& count) {
     return sum;
 } 
 void Decimal_AnySystem(STACK& s, int& k, int& n) {
+    //chuyển hệ 10 về hệ n
     // chỉ áp dụng cho hệ từ 2,3,... ,10 và hệ 16;
     int m;
     if (n == 0 || n == 1) {
@@ -279,3 +296,5 @@ int main() {
     system("pause");
     return 0;
 }
+// căn bản là các hệ chuyển còn lại dựa vào nhau cũng khá giống nhau
+// phần này mình sẽ tối ưu hóa sau --------- LICJ
